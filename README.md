@@ -1,2 +1,1 @@
-# plutus
-Personal Financial assistant
+# Plutus
