@@ -24,6 +24,7 @@ export default function Connect() {
     setTimeout(() => {
       const { bankAccounts, totalBankBalance } = generateFinancialData();
       localStorage.setItem('bankAccounts', JSON.stringify(bankAccounts));
+      localStorage.setItem('totalBankBalance', totalBankBalance.toString());
       setBankBalance(totalBankBalance);
       setIsBankLoading(false);
       setIsConnected(true);
@@ -36,6 +37,7 @@ export default function Connect() {
     setTimeout(() => {
       const { creditCards, totalCardBalance, financialData } = generateFinancialData();
       localStorage.setItem('creditCards', JSON.stringify(creditCards));
+      localStorage.setItem('totalCreditCardDebt', totalCardBalance.toString());
       localStorage.setItem('financialData', JSON.stringify(financialData));
       setCreditCardBalance(totalCardBalance);
       setIsCreditCardLoading(false);
@@ -57,8 +59,14 @@ export default function Connect() {
       const balance = await provider.getBalance(address);
       const ethBalance = formatEther(balance);
 
-      localStorage.setItem('web3Wallet', ethBalance);
+      // Store Ethereum balance
+      localStorage.setItem('ethBalance', ethBalance);
       setEthBalance(ethBalance);
+
+      // Generate and store a random Bitcoin balance (0 to 1 BTC)
+      const btcBalance = Math.random().toFixed(8);
+      localStorage.setItem('btcBalance', btcBalance);
+
       setIsWeb3Connected(true);
     } catch (error) {
       console.error("Failed to connect Web3 wallet:", error);

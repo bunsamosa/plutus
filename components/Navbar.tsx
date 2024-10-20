@@ -49,6 +49,19 @@ export function Navbar() {
         >
           Home
         </NavLink>
+        <NavLink
+          to="/agents"
+          style={{ padding: '0.5rem 0.75rem' }}
+          className={({ isActive }) =>
+            `rounded-md transition-all duration-200 ${
+              isActive
+                ? "font-bold bg-gray-100 text-blue-600"
+                : "hover:bg-gray-100 hover:shadow-md hover:text-blue-600"
+            }`
+          }
+        >
+          Agents
+        </NavLink>
       </div>
       <Button
         variant="ghost"

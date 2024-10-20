@@ -2,17 +2,17 @@
 pragma solidity ^0.8.13;
 
 import {Script, console} from "forge-std/Script.sol";
-import {Counter} from "../src/Counter.sol";
+import {SpendPowerAgent} from "../src/SpendPowerAgent.sol";
 
-contract CounterScript is Script {
-    Counter public counter;
+contract AgentScript is Script {
+    SpendPowerAgent public spendPowerAgent;
 
     function setUp() public {}
 
     function run() public {
         vm.startBroadcast();
 
-        counter = new Counter();
+        spendPowerAgent = new SpendPowerAgent("Spend Power Agent", "SPA");
 
         vm.stopBroadcast();
     }
