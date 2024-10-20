@@ -4,6 +4,7 @@ import { Card, CardContent } from "components/ui/card";
 import { useDynamicContext, DynamicWidget } from "@dynamic-labs/sdk-react-core";
 import { getWeb3Provider, getSigner } from '@dynamic-labs/ethers-v6';
 import { formatEther } from "ethers";
+import { generateFinancialData } from "../utils/financialDataGenerator";
 
 export default function Connect() {
   const { primaryWallet, setShowAuthFlow } = useDynamicContext();
@@ -21,17 +22,9 @@ export default function Connect() {
     setIsBankLoading(true);
 
     setTimeout(() => {
-      const totalBalance = Math.floor(Math.random() * (3000 - 2000 + 1)) + 2000;
-      const chaseBalance = Math.floor(Math.random() * (totalBalance - 100)) + 100;
-      const boaBalance = totalBalance - chaseBalance;
-
-      const bankAccounts = {
-        "Chase Bank Co.": chaseBalance,
-        "Bank of America": boaBalance
-      };
-
+      const { bankAccounts, totalBankBalance } = generateFinancialData();
       localStorage.setItem('bankAccounts', JSON.stringify(bankAccounts));
-      setBankBalance(totalBalance);
+      setBankBalance(totalBankBalance);
       setIsBankLoading(false);
       setIsConnected(true);
     }, 2500);
@@ -41,30 +34,9 @@ export default function Connect() {
     setIsCreditCardLoading(true);
 
     setTimeout(() => {
-      const totalBankBalance = JSON.parse(localStorage.getItem('bankAccounts') || '{}');
-      const totalBalance = Object.values(totalBankBalance).reduce((sum: number, balance: number) => sum + balance, 0);
-
-      let creditCards: Record<string, number>;
-      let totalCardBalance: number;
-
-      if (Math.random() < 0.5) {
-        // Scenario 1: One credit card
-        totalCardBalance = totalBalance - (Math.floor(Math.random() * (750 - 500 + 1)) + 500);
-        creditCards = {
-          "American Express": totalCardBalance
-        };
-      } else {
-        // Scenario 2: Two credit cards
-        totalCardBalance = totalBalance + (Math.floor(Math.random() * (1500 - 1000 + 1)) + 1000);
-        const amexBalance = Math.floor(Math.random() * (totalCardBalance - 100)) + 100;
-        const chaseBalance = totalCardBalance - amexBalance;
-        creditCards = {
-          "American Express": amexBalance,
-          "Chase Freedom Flex": chaseBalance
-        };
-      }
-
+      const { creditCards, totalCardBalance, financialData } = generateFinancialData();
       localStorage.setItem('creditCards', JSON.stringify(creditCards));
+      localStorage.setItem('financialData', JSON.stringify(financialData));
       setCreditCardBalance(totalCardBalance);
       setIsCreditCardLoading(false);
       setIsCreditCardConnected(true);

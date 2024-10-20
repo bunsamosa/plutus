@@ -25,6 +25,18 @@ export function Navbar() {
       </div>
       <div className="flex-auto flex justify-center space-x-8">
         <NavLink
+          to="/connect"
+          style={{ padding: '0.5rem 0.75rem' }}
+          className={({ isActive }) =>
+            `rounded-md transition-all duration-200 ${isActive
+              ? "font-bold bg-gray-100 text-blue-600"
+              : "hover:bg-gray-100 hover:shadow-md hover:text-blue-600"
+            }`
+          }
+        >
+          Connect
+        </NavLink>
+        <NavLink
           to="/home"
           style={{ padding: '0.5rem 0.75rem' }}
           className={({ isActive }) =>
@@ -36,19 +48,6 @@ export function Navbar() {
           }
         >
           Home
-        </NavLink>
-        <NavLink
-          to="/connect"
-          style={{ padding: '0.5rem 0.75rem' }}
-          className={({ isActive }) =>
-            `rounded-md transition-all duration-200 ${
-              isActive
-                ? "font-bold bg-gray-100 text-blue-600"
-                : "hover:bg-gray-100 hover:shadow-md hover:text-blue-600"
-            }`
-          }
-        >
-          Connect
         </NavLink>
       </div>
       <Button
