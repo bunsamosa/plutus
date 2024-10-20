@@ -1,0 +1,8 @@
+{
+  "name": "hardhat-project",
+  "devDependencies": {
+    "@nomiclabs/hardhat-waffle": "^2.0.6",
+    "fhenix-hardhat-docker": "^0.2.2",
+    "fhenix-hardhat-plugin": "^0.2.2"
+  }
+}
