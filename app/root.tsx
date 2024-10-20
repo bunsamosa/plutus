@@ -1,11 +1,15 @@
+import { useState, useEffect } from 'react';
 import {
   Links,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
+  useNavigate,
 } from "@remix-run/react";
 import type { LinksFunction } from "@remix-run/node";
+import { DynamicContextProvider, DynamicWidget } from '@dynamic-labs/sdk-react-core';
+import { EthereumWalletConnectors } from "@dynamic-labs/ethereum";
 
 import "./tailwind.css";
 
@@ -22,7 +26,27 @@ export const links: LinksFunction = () => [
   },
 ];
 
+function ClientOnly({ children }: { children: React.ReactNode }) {
+  const [hasMounted, setHasMounted] = useState(false);
+
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
+
+  if (!hasMounted) {
+    return null;
+  }
+
+  return <>{children}</>;
+}
+
 export function Layout({ children }: { children: React.ReactNode }) {
+  const navigate = useNavigate();
+
+  const handleAuthSuccess = (args: any) => {
+    navigate('/home');
+  };
+
   return (
     <html lang="en">
       <head>
@@ -31,8 +55,20 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body>
-        {children}
+      <body className="max-w-screen-xl mx-auto">
+        <ClientOnly>
+          <DynamicContextProvider
+            settings={{
+              environmentId: 'fa935d18-b6bd-4b98-b01f-8b7190b17d70',
+              walletConnectors: [ EthereumWalletConnectors ],
+              events: {
+                onAuthSuccess: handleAuthSuccess,
+              }
+            }}
+          >
+            {children}
+          </DynamicContextProvider>
+        </ClientOnly>
         <ScrollRestoration />
         <Scripts />
       </body>
