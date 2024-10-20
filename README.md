@@ -8,6 +8,11 @@ Spend Power Agent: https://explorer.story.foundation/ipa/0x408176D5FDE0a59bBbebF
 Networth Agent: https://explorer.story.foundation/ipa/0x7fd5a57439785cfa40b4C6713b250c05B17871f5
 
 
-### Chronicle
+### Chronicle oracles
 ETH-USD Oracle reader: 0xBFD8FDF3aa1A0034eb978fD94e2834e2fB75e34A
 BTC-USD Oracle reader: 0x45d004941e10b75f0Dd27a6f89A312Aa004975cb
+
+
+### Polygon zkEVM Cardona Testnet
+
+### FHEnix
